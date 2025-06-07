@@ -1,15 +1,18 @@
 const { createRes } = require('./testUtils');
 
+jest.mock('../models/student.model', () => ({ find: jest.fn() }));
+jest.mock('../models/batchRegistration.model', () => ({ find: jest.fn() }));
+
 describe('Common fetchAll', () => {
   let Student;
   let Batch;
   let controller;
   beforeEach(() => {
     jest.resetModules();
-    Student = { find: jest.fn() };
-    Batch = { find: jest.fn() };
-    jest.mock('../models/student.model', () => Student);
-    jest.mock('../models/batchRegistration.model', () => Batch);
+    Student = require('../models/student.model');
+    Batch = require('../models/batchRegistration.model');
+    Student.find.mockReset();
+    Batch.find.mockReset();
     controller = require('../controllers/common/fetchAll');
   });
 

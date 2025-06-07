@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const { createRes } = require('./testUtils');
 
+jest.mock('../models/admin.model', () => jest.fn());
+
 const hashKey = 'hash';
 const jwtSecretKey = 'secret';
 
@@ -12,9 +14,9 @@ describe('Admin Controller', () => {
     process.env.HASH_KEY = hashKey;
     process.env.JWT_SECRET_KEY = jwtSecretKey;
     const saveMock = jest.fn().mockResolvedValue({});
-    Admin = jest.fn().mockImplementation(() => ({ save: saveMock }));
+    Admin = require('../models/admin.model');
+    Admin.mockImplementation(() => ({ save: saveMock }));
     Admin.findOne = jest.fn();
-    jest.mock('../models/admin.model', () => Admin);
     controller = require('../controllers/admin.controller');
   });
 

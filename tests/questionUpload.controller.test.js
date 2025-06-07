@@ -1,14 +1,16 @@
 const { createRes } = require('./testUtils');
 
+jest.mock('../models/questionUpload.model', () => jest.fn());
+
 describe('QuestionUpload Controller', () => {
   let Questions;
   let controller;
   beforeEach(() => {
     jest.resetModules();
-    Questions = jest.fn().mockImplementation(() => ({ save: jest.fn().mockResolvedValue({}) }));
+    Questions = require('../models/questionUpload.model');
+    Questions.mockImplementation(() => ({ save: jest.fn().mockResolvedValue({}) }));
     Questions.findOne = jest.fn();
     Questions.find = jest.fn();
-    jest.mock('../models/questionUpload.model', () => Questions);
     controller = require('../controllers/questionUpload.controller');
   });
 

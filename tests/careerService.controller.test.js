@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const { createRes } = require('./testUtils');
 
+jest.mock('../models/careerService.model', () => ({ careerService: jest.fn() }));
+
 const hashKey = 'hash';
 const jwtSecretKey = 'secret';
 
@@ -12,10 +14,10 @@ describe('CareerService Controller', () => {
     process.env.HASH_KEY = hashKey;
     process.env.JWT_SECRET_KEY = jwtSecretKey;
     const saveMock = jest.fn().mockResolvedValue({});
-    careerService = jest.fn().mockImplementation(() => ({ save: saveMock }));
+    ({ careerService } = require('../models/careerService.model'));
+    careerService.mockImplementation(() => ({ save: saveMock }));
     careerService.findOne = jest.fn();
     careerService.find = jest.fn();
-    jest.mock('../models/careerService.model', () => ({ careerService }));
     controller = require('../controllers/careerService.controller');
   });
 

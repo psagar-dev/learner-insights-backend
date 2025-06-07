@@ -1,13 +1,15 @@
 const { createRes } = require('./testUtils');
 
+jest.mock('../models/batchRegistration.model', () => jest.fn());
+
 describe('BatchRegistration Controller', () => {
   let Batch;
   let controller;
   beforeEach(() => {
     jest.resetModules();
-    Batch = jest.fn().mockImplementation(() => ({ save: jest.fn().mockResolvedValue({}) }));
+    Batch = require('../models/batchRegistration.model');
+    Batch.mockImplementation(() => ({ save: jest.fn().mockResolvedValue({}) }));
     Batch.findOne = jest.fn();
-    jest.mock('../models/batchRegistration.model', () => Batch);
     controller = require('../controllers/batchRegistration.controller');
   });
 

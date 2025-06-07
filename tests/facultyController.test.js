@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const { createRes } = require('./testUtils');
 
+jest.mock('../models/faculty.model', () => jest.fn());
+
 const hashKey = 'hash';
 const jwtSecretKey = 'secret';
 
@@ -12,10 +14,10 @@ describe('Faculty Controller', () => {
     process.env.HASH_KEY = hashKey;
     process.env.JWT_SECRET_KEY = jwtSecretKey;
     const saveMock = jest.fn().mockResolvedValue({});
-    faculty = jest.fn().mockImplementation(() => ({ save: saveMock }));
+    faculty = require('../models/faculty.model');
+    faculty.mockImplementation(() => ({ save: saveMock }));
     faculty.findOne = jest.fn();
     faculty.find = jest.fn();
-    jest.mock('../models/faculty.model', () => faculty);
     controller = require('../controllers/facultyController');
   });
 
