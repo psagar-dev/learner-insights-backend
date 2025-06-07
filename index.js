@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const connect = require("./database/mongoDb");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -32,6 +32,33 @@ app.use("/batch" , batchRegisterRoute)
 app.use("/attendance" , attendanceRoute)
 
 // app.use("/users",);
+
+const dashBoardInfo = [
+  { name: "Batches", value: "12", color: "rgb(209, 233, 252)" },
+  { name: "Total Learners", value: "120", color: "rgb(208, 242, 255)" },
+  { name: "Active learners", value: "76", color: "rgb(255, 247, 205)" },
+  { name: "Learner Reports", value: "available", color: "rgb(255, 231, 217)" },
+];
+
+const StudentBoardInfo = [
+  {
+    id: 1,
+    name: "Snehal",
+    batch: "FSD2",
+    avatar: "images_student",
+    enrolled: "12-10-22",
+    course_name: "Full Stack Development Program",
+    color: "rgb(209, 233, 252)",
+  },
+];
+
+app.get('/api/dashboard', (req, res) => {
+  res.status(200).json(dashBoardInfo);
+});
+
+app.get('/api/studentinfo', (req, res) => {
+  res.status(200).json(StudentBoardInfo);
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World! check");
