@@ -28,7 +28,6 @@ const addQuestion = async (req, res) => {
 const getAllQuestions = async (req, res) => {
   try {
     const result = await Questions.find({});
-    console.log(result);
     res.send(result);
   } catch (err) {
     res.status(500).send(err);

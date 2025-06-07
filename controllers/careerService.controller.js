@@ -6,7 +6,6 @@ const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 const careerServiceRegister = async (req, res) => {
   try {
-    console.log(req.body);
     req.body.password = crypto
       .createHash("sha256", hashKey)
       .update(req.body.password)
@@ -29,11 +28,9 @@ const careerServiceRegister = async (req, res) => {
 
 const careerServiceLogin = async (req, res) => {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
 
     if (!email && !password) {
-      console.log("Please fill all the details");
       return res.send({ message: "Please fill all the details" });
     }
 
@@ -69,7 +66,6 @@ const careerServiceLogin = async (req, res) => {
 const getAllCareerServices = async (req, res) => {
   try {
     const result = await careerService.find({});
-    console.log(result);
     res.json({ result });
   } catch (err) {
     res.status(500).send(err);

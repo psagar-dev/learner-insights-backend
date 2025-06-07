@@ -8,7 +8,6 @@ const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 async function Register(req, res) {
   try {
-    console.log(req.body);
     let date = new Date();
     req.body.password = crypto
       .createHash("sha256", hashKey)
@@ -21,9 +20,7 @@ async function Register(req, res) {
     }
 
     const newStudent = new Student({ ...req.body });
-    console.log(newStudent);
     const newSavedStudent = await newStudent.save();
-    console.log({ newSavedStudent });
     res.json({ message: "registered" }).status(200);
   } catch (err) {
     res.status(500).json({ message: "not registered", err: err });
@@ -32,11 +29,9 @@ async function Register(req, res) {
 
 const StudentLogin = async (req, res) => {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
 
     if (!email || !password) {
-      console.log("Please fill all the details");
       return res.send({ message: "Please fill all the details" });
     }
 

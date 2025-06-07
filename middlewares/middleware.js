@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 const Authorization = async (req, res, next) => {
-  console.log("middleware called");
   const bearerHeader = req.headers.authorization;
 
   if (!bearerHeader) {

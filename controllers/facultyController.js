@@ -28,11 +28,9 @@ const facultyRegister = async (req, res) => {
 
 const facultyLoginMethod = async (req, res) => {
   try {
-    console.log(req.body);
     const { email, password } = req.body;
     
     if (!email || !password) {
-      console.log("Please fill all the details");
       return res.send({ message: "Please fill all the details" });
     }
 
@@ -68,7 +66,6 @@ const facultyLoginMethod = async (req, res) => {
 const getAllFaculty = async (req, res) => {
   try {
     const result = await facultyLogin.find({});
-    console.log(result);
     res.json({ result });
   } catch (err) {
     res.status(500).send(err);

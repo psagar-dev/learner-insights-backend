@@ -6,7 +6,6 @@ const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 async function adminRegister(req, res) {
   const {email, password}  = req.body
-  console.log(req.body);
   let date = new Date();
   req.body.password = crypto
     .createHash("sha256", hashKey)
@@ -20,9 +19,7 @@ async function adminRegister(req, res) {
     }
     
     const newAdmin = new Admin({ ...req.body });
-    console.log(newAdmin);
     const newSavedAdmin = await newAdmin.save();
-    console.log({ newSavedAdmin });
     res.json({ message: "registered" }).status(200);
   } catch (err) {
     res.status(500).json({ message: "not registered", err: err });
@@ -33,7 +30,6 @@ const AdminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      console.log("Please fill all the details");
       return res.json({ message: "Please fill all the details", login: false });
     }
 
@@ -58,7 +54,6 @@ const AdminLogin = async (req, res) => {
         result: result,
         token: jwtToken,
       };
-      console.log("resultpayload", resultpayload);
       res.send(resultpayload);
     } else {
       res.status(400).send("Wrong Password");
