@@ -61,7 +61,8 @@ app.get('/api/studentinfo', (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello World! check");
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.send("Okay");
 });
 
 const startServer = async () => {
