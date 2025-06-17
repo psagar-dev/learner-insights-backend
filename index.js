@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT && !isNaN(Number(process.env.PORT)) ? Number(process.env.PORT) : 3001;
 const connect = require("./database/mongoDb");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -64,6 +64,11 @@ app.get("/", (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.send("Okay");
 });
+
+app.get('/health', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  res.send({ status: 'OK' })
+})
 
 const startServer = async () => {
   try {
