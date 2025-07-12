@@ -48,7 +48,7 @@ pipeline {
                 build job: 'deploy-helm/main',
                 parameters: [
                     string(name: 'SERVICE_NAME', value: 'backend'), // Change to 'backend' for the backend repo
-                    string(name: 'IMAGE_TAG', value: ${BUILD_NUMBER})
+                    string(name: 'IMAGE_TAG', value: BUILD_NUMBER)
                 ],
                 wait: false // Proceeds without waiting for the deployment to finish
             }
