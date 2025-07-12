@@ -19,7 +19,10 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install && npm test'
+                sh '''
+                    npm install --cache .npm-cache
+                    npm test
+                '''
             }
         }
 
