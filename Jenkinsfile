@@ -54,4 +54,12 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            echo 'CI Pipeline finished.'
+            // Clean up the Docker image from the Jenkins agent to save space.
+            sh "docker rmi ${DOCKER_IMAGE}:${BUILD_NUMBER} || true"
+        }
+    }
 }
