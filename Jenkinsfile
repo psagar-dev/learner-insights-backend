@@ -45,7 +45,7 @@ pipeline {
         stage('Trigger Deployment') {
             steps {
                 echo "Triggering the deployment pipeline..."
-                build job: 'deploy-helm/main',
+                build job: 'deploy-helm',
                 parameters: [
                     string(name: 'SERVICE_NAME', value: 'backend'), // Change to 'backend' for the backend repo
                     string(name: 'IMAGE_TAG', value: BUILD_NUMBER)
